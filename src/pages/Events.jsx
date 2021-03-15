@@ -39,7 +39,8 @@ const EventsPage = () => {
       `,
     };
 
-    fetch("http://localhost:8000/graphql", {
+    // fetch("http://localhost:8000/graphql", {
+    fetch("https://bookingbackendlucwag.herokuapp.com:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -106,7 +107,8 @@ const EventsPage = () => {
       },
     };
 
-    fetch("http://localhost:8000/graphql", {
+    // fetch("http://localhost:8000/graphql", {
+    fetch("https://bookingbackendlucwag.herokuapp.com:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -167,7 +169,8 @@ const EventsPage = () => {
       },
     };
 
-    fetch("http://localhost:8000/graphql", {
+    // fetch("http://localhost:8000/graphql", {
+    fetch("https://bookingbackendlucwag.herokuapp.com:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
