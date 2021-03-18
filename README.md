@@ -1,9 +1,39 @@
-Quelle:
-https://medium.com/devcnairobi/deploy-a-react-app-on-github-pages-67503a8ac87a
+# Overview
+This repo is used for the frontend part of a booking app. React is used as framwork.  
+For a quick start **Create React App** was used to spawn the base of the frontend.  
+All infos about Create React App can be found below.  
+For this project the functionality is more of a "side effekt".  
+It mostly creates a foundation which can be adapted to any use case.  
+A GraphQL API is used to get and post data to and from the backend.  
+The Backend can be found here: https://github.com/LucWag92/Booking_Backend  
 
-How to deploy
+## Deploy Website to GitHub Pages
+- npm run deploy  
+Quelle: https://medium.com/devcnairobi/deploy-a-react-app-on-github-pages-67503a8ac87a
 
-1. npm run deploy
+## Start Project
+1. npm install
+2. npm start
+
+## Start Debug Modus
+1. Frontend:
+- Use in VSCode: Create a launch.json file inside of the frontend folder.
+-  Create a new Chrome Launch config to this file.
+  ```json
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      "name": "Chrome React WebApp",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/frontend"
+    }
+  ]
+  ```
+- Just start the Debug process via the debugging panel in VSCode.
+
+
+
 
 # Getting Started with Create React App
 
@@ -35,43 +65,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
