@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Redirect,
+  Switch,
+  HashRouter,
+} from "react-router-dom";
 import AuthPage from "./pages/Auth";
 import BookingsPage from "./pages/Bookings";
 import EventsPage from "./pages/Events";
@@ -19,7 +25,7 @@ function App() {
     setuserId("");
   };
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AuthContext.Provider value={{ token, userId, login, logout }}>
         <MainNavigation></MainNavigation>
         <main className="main-content">
@@ -34,7 +40,7 @@ function App() {
           </Switch>
         </main>
       </AuthContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
