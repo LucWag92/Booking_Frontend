@@ -1,30 +1,25 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from 'react-router-dom';
-import AuthPage from './pages/Auth';
-import BookingsPage from './pages/Bookings';
-import EventsPage from './pages/Events';
-import MainNavigation from './components/Navigation/MainNavigation';
-import './App.css';
-import AuthContext from './context/auth-context';
-import { useState } from 'react';
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import AuthPage from "./pages/Auth";
+import BookingsPage from "./pages/Bookings";
+import EventsPage from "./pages/Events";
+import MainNavigation from "./components/Navigation/MainNavigation";
+import "./App.css";
+import AuthContext from "./context/auth-context";
+import { useState } from "react";
 
 function App() {
-  const [token, settoken] = useState('');
-  const [userId, setuserId] = useState('');
+  const [token, settoken] = useState("");
+  const [userId, setuserId] = useState("");
   const login = (tokenFc, userIdFc, tokenExpiration) => {
     settoken(tokenFc);
     setuserId(userIdFc);
   };
   const logout = () => {
-    settoken('');
-    setuserId('');
+    settoken("");
+    setuserId("");
   };
   return (
-    <Router>
+    <BrowserRouter basename="/Booking_Frontend">
       <AuthContext.Provider value={{ token, userId, login, logout }}>
         <MainNavigation></MainNavigation>
         <main className="main-content">
@@ -39,7 +34,7 @@ function App() {
           </Switch>
         </main>
       </AuthContext.Provider>
-    </Router>
+    </BrowserRouter>
   );
 }
 
