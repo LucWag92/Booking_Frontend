@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Route,
-  Redirect,
-  Switch,
-  HashRouter,
-} from "react-router-dom";
+import { Route, Redirect, Switch, HashRouter } from "react-router-dom";
 import AuthPage from "./pages/Auth";
 import BookingsPage from "./pages/Bookings";
 import EventsPage from "./pages/Events";

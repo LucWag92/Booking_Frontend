@@ -4,6 +4,10 @@ import Button from "@material-ui/core/Button";
 import AuthContext from "../context/auth-context";
 
 const AuthPage = () => {
+  const url =
+    process.env.REACT_APP_TEST_URL ||
+    "https://bookingbackendlucwag.herokuapp.com/graphql";
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const emailRef = React.useRef(null);
   const passwordRef = React.useRef(null);
@@ -53,7 +57,7 @@ const AuthPage = () => {
     }
 
     // fetch("http://localhost:8000/graphql", {
-    fetch("https://bookingbackendlucwag.herokuapp.com/graphql", {
+    fetch(url, {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

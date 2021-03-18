@@ -9,6 +9,10 @@ import EventList from "../components/Events/EventList/EventList";
 import Spinner from "../components/Spinner/spinner";
 
 const EventsPage = () => {
+  const url =
+    process.env.REACT_APP_TEST_URL ||
+    "https://bookingbackendlucwag.herokuapp.com/graphql";
+
   const titleRef = useRef(null);
   const priceRef = useRef(null);
   const dateRef = useRef(null);
@@ -40,7 +44,7 @@ const EventsPage = () => {
     };
 
     // fetch("http://localhost:8000/graphql", {
-    fetch("https://bookingbackendlucwag.herokuapp.com/graphql", {
+    fetch(url, {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -108,7 +112,7 @@ const EventsPage = () => {
     };
 
     // fetch("http://localhost:8000/graphql", {
-    fetch("https://bookingbackendlucwag.herokuapp.com/graphql", {
+    fetch(url, {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -170,7 +174,7 @@ const EventsPage = () => {
     };
 
     // fetch("http://localhost:8000/graphql", {
-    fetch("https://bookingbackendlucwag.herokuapp.com/graphql", {
+    fetch(url, {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

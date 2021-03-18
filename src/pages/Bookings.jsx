@@ -9,6 +9,10 @@ import Button from "@material-ui/core/Button";
 import "./Bookings.css";
 
 const BookingsPage = () => {
+  const url =
+    process.env.REACT_APP_TEST_URL ||
+    "https://bookingbackendlucwag.herokuapp.com/graphql";
+
   const [isLoading, setisLoading] = useState(false);
   const [bookings, setbookings] = useState([]);
   const [isList, setIsList] = useState(true);
@@ -36,7 +40,7 @@ const BookingsPage = () => {
     };
 
     // fetch("http://localhost:8000/graphql", {
-    fetch("https://bookingbackendlucwag.herokuapp.com/graphql", {
+    fetch(url, {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -90,7 +94,7 @@ const BookingsPage = () => {
     };
 
     // fetch("http://localhost:8000/graphql", {
-    fetch("https://bookingbackendlucwag.herokuapp.com/graphql", {
+    fetch(url, {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
