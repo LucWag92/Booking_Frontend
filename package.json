@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "homepage": "http://https://lucwag92.github.io/Booking_Frontend/",
+  "homepage": "https://lucwag92.github.io/Booking_Frontend/",
   "private": true,
   "dependencies": {
     "@devexpress/dx-core": "^2.7.4",

@@ -19,7 +19,7 @@ function App() {
     setuserId("");
   };
   return (
-    <BrowserRouter basename="/Booking_Frontend">
+    <BrowserRouter>
       <AuthContext.Provider value={{ token, userId, login, logout }}>
         <MainNavigation></MainNavigation>
         <main className="main-content">
