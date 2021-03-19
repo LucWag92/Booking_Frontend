@@ -12,6 +12,11 @@ const AuthPage = () => {
   const emailRef = React.useRef(null);
   const passwordRef = React.useRef(null);
   const context = useContext(AuthContext);
+  const [isEmailActive, setEmailActive] = useState(false);
+  const [emailValue, setEmailValue] = useState("");
+  const [isPasswordActive, setPasswordActive] = useState(false);
+  const [passwordValue, setPasswordValue] = useState("");
+  const [responseElement, setResponseElement] = useState(null);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -21,6 +26,7 @@ const AuthPage = () => {
     console.log(context);
 
     if (email.trim().length === 0 || password.trim().length === 0) {
+      setResponseElement(<div>Check your input</div>);
       return;
     }
 
@@ -56,7 +62,6 @@ const AuthPage = () => {
       };
     }
 
-    // fetch("http://localhost:8000/graphql", {
     fetch(url, {
       method: "POST",
       body: JSON.stringify(requestBody),
@@ -72,45 +77,109 @@ const AuthPage = () => {
       })
       .then((resData) => {
         console.log(resData);
-        if (resData.data.login.token) {
+        if (resData.data.login?.token) {
           context.login(
             resData.data.login.token,
             resData.data.login.userId,
             resData.data.login.tokenExpiration
           );
+          setResponseElement(<div>{email} is successfully logged in</div>);
+        } else if (resData.data.createUser?.email) {
+          setResponseElement(<div>{email} was created.</div>);
+        } else {
+          setResponseElement(
+            <div>User already exists. Please use LogIn Page</div>
+          );
         }
       })
       .catch((err) => {
         console.log(err);
+        setResponseElement(<div>Error loggin in {email}</div>);
       });
   };
 
+  const dynamicStyle = {
+    backgroundColor: isLoggedIn
+      ? "rgba(106, 1, 177, 0.1)"
+      : "rgba(106, 1, 177, 0.3)",
+  };
+
+  const handleEMailTextChange = (text) => {
+    setEmailValue(text);
+
+    if (text !== "") {
+      setEmailActive(true);
+    } else {
+      setEmailActive(false);
+    }
+  };
+  const handlePasswordTextChange = (text) => {
+    setPasswordValue(text);
+
+    if (text !== "") {
+      setPasswordActive(true);
+    } else {
+      setPasswordActive(false);
+    }
+  };
+
   return (
-    <form className="auth-form" onSubmit={submitHandler}>
-      <div className="form-control">
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" ref={emailRef} />
-      </div>
-      <div className="form-control">
-        <label htmlFor="password">Password</label>
-        <input type="password" id="password" ref={passwordRef} />
-      </div>
-      <div className="form-action">
-        <Button variant="contained" color="primary" type="submit">
-          Submit
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="button"
-          onClick={() => {
-            setIsLoggedIn((prevValue) => !prevValue);
-          }}
-        >
-          Switch to {isLoggedIn ? "Signup" : "Login"}
-        </Button>
-      </div>
-    </form>
+    <React.Fragment>
+      <form className="auth-form" onSubmit={submitHandler} style={dynamicStyle}>
+        <div className="form-header">
+          {isLoggedIn ? "Login" : "Signup"} Modus
+        </div>
+        <div className="form-control">
+          <div id="float-label">
+            <input
+              type="email"
+              value={emailValue}
+              onChange={(e) => {
+                handleEMailTextChange(e.target.value);
+              }}
+              ref={emailRef}
+              id="email"
+            />
+            <label className={isEmailActive ? "Active" : ""} htmlFor="email">
+              E-mail
+            </label>
+          </div>
+          <div id="float-label">
+            <input
+              type="password"
+              value={passwordValue}
+              onChange={(e) => {
+                handlePasswordTextChange(e.target.value);
+              }}
+              ref={passwordRef}
+              id="password"
+            />
+            <label
+              className={isPasswordActive ? "Active" : ""}
+              htmlFor="password"
+            >
+              Password
+            </label>
+          </div>
+        </div>
+        <div className="form-action">
+          <Button variant="contained" color="primary" type="submit">
+            Submit
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            onClick={() => {
+              setIsLoggedIn((prevValue) => !prevValue);
+            }}
+          >
+            Switch to {isLoggedIn ? "Signup" : "Login"}
+          </Button>
+        </div>
+      </form>
+      {responseElement}
+    </React.Fragment>
   );
 };
 
