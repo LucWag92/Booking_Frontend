@@ -1,9 +1,29 @@
 import React, { useState, useContext } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Email from "@material-ui/icons/Email";
+import Icon from "@material-ui/core/Icon";
+
 import "./Auth.css";
 import Button from "@material-ui/core/Button";
 import AuthContext from "../context/auth-context";
 
+import Card from "../components/Card/Card";
+import CardHeader from "../components/Card/CardHeader";
+import CardBody from "../components/Card/CardBody";
+import CardFooter from "../components/Card/CardFooter";
+import cardStyle from "../assets/jss/Card/cardStyle";
+
+import CustomInput from "../components/Input/CustomInput";
+const useCardStyles = makeStyles(cardStyle);
+
 const AuthPage = () => {
+  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+  const cardClasses = useCardStyles();
+  setTimeout(function () {
+    setCardAnimation("");
+  }, 500);
+
   const url =
     process.env.REACT_APP_TEST_URL ||
     "https://bookingbackendlucwag.herokuapp.com/graphql";
@@ -12,10 +32,6 @@ const AuthPage = () => {
   const emailRef = React.useRef(null);
   const passwordRef = React.useRef(null);
   const context = useContext(AuthContext);
-  const [isEmailActive, setEmailActive] = useState(false);
-  const [emailValue, setEmailValue] = useState("");
-  const [isPasswordActive, setPasswordActive] = useState(false);
-  const [passwordValue, setPasswordValue] = useState("");
   const [responseElement, setResponseElement] = useState(null);
 
   const submitHandler = (event) => {
@@ -98,87 +114,71 @@ const AuthPage = () => {
       });
   };
 
-  const dynamicStyle = {
-    backgroundColor: isLoggedIn
-      ? "rgba(106, 1, 177, 0.1)"
-      : "rgba(106, 1, 177, 0.3)",
-  };
-
-  const handleEMailTextChange = (text) => {
-    setEmailValue(text);
-
-    if (text !== "") {
-      setEmailActive(true);
-    } else {
-      setEmailActive(false);
-    }
-  };
-  const handlePasswordTextChange = (text) => {
-    setPasswordValue(text);
-
-    if (text !== "") {
-      setPasswordActive(true);
-    } else {
-      setPasswordActive(false);
-    }
-  };
-
   return (
     <React.Fragment>
-      <form className="auth-form" onSubmit={submitHandler} style={dynamicStyle}>
-        <div className="form-header">
-          {isLoggedIn ? "Login" : "Signup"} Modus
-        </div>
-        <div className="form-control">
-          <div id="float-label">
-            <input
-              type="email"
-              value={emailValue}
-              onChange={(e) => {
-                handleEMailTextChange(e.target.value);
-              }}
-              ref={emailRef}
-              id="email"
-            />
-            <label className={isEmailActive ? "Active" : ""} htmlFor="email">
-              E-mail
-            </label>
-          </div>
-          <div id="float-label">
-            <input
-              type="password"
-              value={passwordValue}
-              onChange={(e) => {
-                handlePasswordTextChange(e.target.value);
-              }}
-              ref={passwordRef}
-              id="password"
-            />
-            <label
-              className={isPasswordActive ? "Active" : ""}
-              htmlFor="password"
-            >
-              Password
-            </label>
-          </div>
-        </div>
-        <div className="form-action">
-          <Button variant="contained" color="primary" type="submit">
-            Submit
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            type="button"
-            onClick={() => {
-              setIsLoggedIn((prevValue) => !prevValue);
-            }}
+      <Card className={cardClasses[cardAnimaton]}>
+        <form className={cardClasses.form} onSubmit={submitHandler}>
+          <CardHeader
+            color={isLoggedIn ? "primary" : "info"}
+            className={cardClasses.cardHeader}
           >
-            Switch to {isLoggedIn ? "Signup" : "Login"}
-          </Button>
-        </div>
-      </form>
-      {responseElement}
+            <h4>{isLoggedIn ? "Login In" : "Sign Up"}</h4>
+          </CardHeader>
+          <CardBody>
+            <CustomInput
+              labelText="Email"
+              id="email"
+              inputRef={emailRef}
+              formControlProps={{
+                fullWidth: true,
+              }}
+              inputProps={{
+                type: "email",
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Email className={cardClasses.inputIconsColor} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <CustomInput
+              labelText="Password"
+              inputRef={passwordRef}
+              id="password"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              inputProps={{
+                type: "password",
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Icon className={cardClasses.inputIconsColor}>
+                      lock_outline
+                    </Icon>
+                  </InputAdornment>
+                ),
+                autoComplete: "off",
+              }}
+            />
+          </CardBody>
+          <CardFooter className={cardClasses.cardFooter}>
+            <Button simple color="primary" size="lg" type="submit">
+              {!isLoggedIn ? "SignUp" : "LogIn"}
+            </Button>
+            <Button
+              simple
+              color="primary"
+              size="lg"
+              onClick={() => {
+                setIsLoggedIn((prevValue) => !prevValue);
+              }}
+            >
+              Switch to {isLoggedIn ? "Signup" : "Login"}
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
+      {<div style={{ color: "white" }}>{responseElement}</div>}
     </React.Fragment>
   );
 };

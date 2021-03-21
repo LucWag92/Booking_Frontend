@@ -4,6 +4,7 @@
   border: 1px solid black;
   display: flex;
   justify-content: space-between;
+  background-color: aliceblue;
 }
 
 .event__list-item h1 {
